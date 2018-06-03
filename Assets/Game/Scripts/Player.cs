@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
         MovePlayerHorizontal(horizontalMovement);
         RotatePlayerToMovementDirection(horizontalMovement);
-        Jump(playerJump);
+        JumpPlayer(playerJump);
     }
 
     // Helper methods
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         model.transform.rotation = Quaternion.Lerp(model.transform.rotation, Quaternion.Euler(0f, targetYRotation, 0f), Time.deltaTime * 10f);
     }
 
-    private void Jump(float playerJump) {
+    private void JumpPlayer(float playerJump) {
         if (playerJump > 0f) {
             onGround = calculatePlayerOnGround();
             if (onGround) {
