@@ -34,3 +34,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Udemy course assets (rely on commercial license by @renebuehling)
