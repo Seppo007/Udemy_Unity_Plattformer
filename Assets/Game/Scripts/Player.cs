@@ -13,14 +13,23 @@ public class Player : MonoBehaviour
     private bool onGround;
     private Rigidbody rb;
 
+    private Animator anim;
+
     // Called once when scene is loaded
     private void Start() {
         rb = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     private void Update() {
+        setAnimatorParameters();
+    }
 
+    // Helper methods for render update
+    private void setAnimatorParameters() {
+        anim.SetFloat("forward", Mathf.Abs(Input.GetAxis("Horizontal")));
+        anim.SetBool("grounded", onGround);
     }
 
     // Update of physics in constant time delta
@@ -28,13 +37,15 @@ public class Player : MonoBehaviour
         float horizontalMovement = Input.GetAxis("Horizontal");
         float playerJump = Input.GetAxis("Jump");
 
-        MovePlayerHorizontal(horizontalMovement);
+        MovePlayerAndSetAnimator(horizontalMovement);
         RotatePlayerToMovementDirection(horizontalMovement);
         JumpPlayer(playerJump);
+
+        CalculatePlayerOnGround();
     }
 
-    // Helper methods
-    private void MovePlayerHorizontal(float horizontalMovement) {
+    // Helper methods for physics update
+    private void MovePlayerAndSetAnimator(float horizontalMovement) {
         transform.position += speed * transform.forward * horizontalMovement;
     }
 
@@ -50,7 +61,6 @@ public class Player : MonoBehaviour
 
     private void JumpPlayer(float playerJump) {
         if (playerJump > 0f) {
-            onGround = calculatePlayerOnGround();
             if (onGround) {
                 Vector3 jumpPower = new Vector3(rb.velocity.x, jumpPush, rb.velocity.z);
                 rb.velocity = jumpPower;
@@ -60,8 +70,8 @@ public class Player : MonoBehaviour
         rb.AddForce(new Vector3(0f, -extraGravity, 0f));
     }
 
-    private bool calculatePlayerOnGround() {
+    private void CalculatePlayerOnGround() {
         RaycastHit hitInfo;
-        return Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.12f);
+        onGround = Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.12f);
     }
 }
