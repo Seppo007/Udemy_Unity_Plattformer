@@ -256,7 +256,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 861889730}
     m_Modifications:
     - target: {fileID: 400080, guid: 26b8c4b65e574e34b812fa9b7a9b37f2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -288,24 +288,59 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400080, guid: 26b8c4b65e574e34b812fa9b7a9b37f2, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 26b8c4b65e574e34b812fa9b7a9b37f2, type: 3}
   m_IsPrefabParent: 0
---- !u!1 &1729289756 stripped
+--- !u!1 &861889729
 GameObject:
-  m_PrefabParentObject: {fileID: 100080, guid: 26b8c4b65e574e34b812fa9b7a9b37f2, type: 3}
-  m_PrefabInternal: {fileID: 577732844}
---- !u!114 &1729289757
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 861889730}
+  - component: {fileID: 861889731}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &861889730
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 861889729}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1729289758}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &861889731
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1729289756}
+  m_GameObject: {fileID: 861889729}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 033814f8e23cd6346a01475036fd86a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
+  model: {fileID: 1729289756}
+--- !u!1 &1729289756 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100080, guid: 26b8c4b65e574e34b812fa9b7a9b37f2, type: 3}
+  m_PrefabInternal: {fileID: 577732844}
+--- !u!4 &1729289758 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400080, guid: 26b8c4b65e574e34b812fa9b7a9b37f2, type: 3}
+  m_PrefabInternal: {fileID: 577732844}
