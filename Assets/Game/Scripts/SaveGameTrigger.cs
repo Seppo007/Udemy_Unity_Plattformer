@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SaveGameTrigger : MonoBehaviour
 {
 
     private void OnTriggerEnter(Collider other) {
         Debug.Log("Jetzt speichern");
+        SaveGameData savegame = new SaveGameData();
+        savegame.Save();
     }
 
     private void OnDrawGizmos() {
