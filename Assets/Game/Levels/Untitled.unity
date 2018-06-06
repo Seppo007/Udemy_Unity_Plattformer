@@ -469,6 +469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorAnimator: {fileID: 1649946033}
+  meshRenderer: {fileID: 1760059138}
 --- !u!1001 &577732844
 Prefab:
   m_ObjectHideFlags: 0
@@ -918,6 +919,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4268e9c70ea8c1941857ab28a5c7c996, type: 3}
   m_IsPrefabParent: 0
+--- !u!23 &1760059138 stripped
+MeshRenderer:
+  m_PrefabParentObject: {fileID: 2300000, guid: ce1fe85d4717df843ba1e39f68de4a60,
+    type: 3}
+  m_PrefabInternal: {fileID: 1781037680}
 --- !u!1001 &1769881925
 Prefab:
   m_ObjectHideFlags: 0
