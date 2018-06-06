@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-public class SaveGameTrigger : MonoBehaviour
-{
+public class SaveGameTrigger : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         Debug.Log("Jetzt speichern");

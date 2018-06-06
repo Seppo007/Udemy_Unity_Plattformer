@@ -1,28 +1,33 @@
-﻿using UnityEngine;
+﻿using GameDevProfi.Utils;
 using System.IO;
-using GameDevProfi.Utils;
+using UnityEngine;
 
 [System.Serializable]
-public class SaveGameData
-{
+public class SaveGameData {
 
     public Vector3 playerPosition = Vector3.zero;
 
     private static readonly char FILE_SEPARATOR = Path.DirectorySeparatorChar;
 
-    private static string GetFilename() {
-        return Application.persistentDataPath.Replace('/', FILE_SEPARATOR) + FILE_SEPARATOR + "savegame.xml";
-    }
-
     public void Save() {
-        SetPlayerPosition();
+        Player player = getPlayer();
+        playerPosition = player.transform.position;
         string xml = XML.Save(this);
         File.WriteAllText(GetFilename(), xml);
     }
 
-    private void SetPlayerPosition() {
-        Player player = Component.FindObjectOfType<Player>();
-        playerPosition = player.transform.position;
+    public static SaveGameData Load() {
+        SaveGameData save = XML.Load<SaveGameData>(File.ReadAllText(GetFilename()));
+        Player player = getPlayer();
+        player.transform.position = save.playerPosition;
+        return save;
     }
 
+    private static Player getPlayer() {
+        return Component.FindObjectOfType<Player>();
+    }
+
+    private static string GetFilename() {
+        return Application.persistentDataPath.Replace('/', FILE_SEPARATOR) + FILE_SEPARATOR + "savegame.xml";
+    }
 }
