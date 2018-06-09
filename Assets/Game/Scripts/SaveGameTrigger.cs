@@ -2,9 +2,14 @@
 
 public class SaveGameTrigger : MonoBehaviour {
 
+    public string ID = "";
+
     private void OnTriggerEnter(Collider other) {
-        SaveGameData savegame = new SaveGameData();
-        savegame.Save();
+        SaveGameData savegame = SaveGameData.current;
+        if (savegame.lastTriggerID != ID) {
+            savegame.lastTriggerID = ID;
+            savegame.Save();
+        }
     }
 
     private void OnDrawGizmos() {

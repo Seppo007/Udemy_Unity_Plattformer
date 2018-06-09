@@ -29,12 +29,10 @@ public class DoorSwitch : MonoBehaviour {
     }
 
     private void SaveMe(SaveGameData savegame) {
-        Debug.Log("DoorSwitch SaveMe");
         savegame.doorIsOpen = doorAnimator.GetBool("isOpen");
     }
 
     private void LoadMe(SaveGameData savegame) {
-        Debug.Log("DoorSwitch LoadMe");
         doorAnimator.SetBool("isOpen", savegame.doorIsOpen);
         if (savegame.doorIsOpen) {
             switchLights();

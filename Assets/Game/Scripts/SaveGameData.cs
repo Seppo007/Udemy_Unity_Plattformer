@@ -7,6 +7,9 @@ public class SaveGameData {
 
     public Vector3 playerPosition = Vector3.zero;
     public bool doorIsOpen = false;
+    public string lastTriggerID = "";
+
+    public static SaveGameData current = new SaveGameData();
 
     public delegate void SaveHandler(SaveGameData savegame);
     public static event SaveHandler OnSave;
@@ -28,7 +31,7 @@ public class SaveGameData {
     }
 
     public static SaveGameData Load() {
-        SaveGameData save = null;
+        SaveGameData save = new SaveGameData();
         if (File.Exists(GetFilename())) {
             save = XML.Load<SaveGameData>(File.ReadAllText(GetFilename()));
             Player player = getPlayer();
