@@ -6,6 +6,11 @@ using UnityEngine;
 public class SaveGameData {
 
     public Vector3 playerPosition = Vector3.zero;
+    public bool doorIsOpen = false;
+
+    public delegate void SaveHandler(SaveGameData savegame);
+    public static event SaveHandler OnSave;
+    public static event SaveHandler OnLoad;
 
     private static readonly char FILE_SEPARATOR = Path.DirectorySeparatorChar;
 
@@ -13,6 +18,11 @@ public class SaveGameData {
         Player player = getPlayer();
         playerPosition = player.transform.position;
         playerPosition.y = 0f;
+
+        if (OnSave != null) {
+            OnSave(this);
+        }
+
         string xml = XML.Save(this);
         File.WriteAllText(GetFilename(), xml);
     }
@@ -23,6 +33,9 @@ public class SaveGameData {
             save = XML.Load<SaveGameData>(File.ReadAllText(GetFilename()));
             Player player = getPlayer();
             player.transform.position = save.playerPosition;
+            if (OnLoad != null) {
+                OnLoad(save);
+            }
         }
         return save;
     }
