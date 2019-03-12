@@ -12,6 +12,7 @@ public class SaveGameTrigger : MonoBehaviour {
         }
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos() {
         if (UnityEditor.Selection.activeGameObject != this.gameObject) {
             Gizmos.color = Color.magenta;
@@ -21,5 +22,5 @@ public class SaveGameTrigger : MonoBehaviour {
             Gizmos.matrix = oldMatrix;
         }
     }
-
+#endif
 }
