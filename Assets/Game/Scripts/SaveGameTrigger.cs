@@ -8,7 +8,8 @@ using UnityEngine;
 public class SaveGameTrigger : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
-
+        SaveGameData saveGame = new SaveGameData();
+        saveGame.save();
     }
 
     private void OnDrawGizmos() {
