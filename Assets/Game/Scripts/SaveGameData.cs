@@ -5,7 +5,7 @@ using System.IO;
 using GameDevProfi.Utils;
 
 /// <summary>
-/// Datenobjekt zum Halten von Speicherdaten
+/// Datenobjekt zum Speichern und Laden von Speicherdaten
 /// </summary>
 [System.Serializable]
 public class SaveGameData {
@@ -15,11 +15,24 @@ public class SaveGameData {
     }
 
     public void save() {
+        Debug.Log("Speichere Spielstand " + getFilename());
+
         Player player = Component.FindObjectOfType<Player>();
         playerPosition = player.transform.position;
 
         string xml = XML.Save(this);
         File.WriteAllText(getFilename(), xml);
+    }
+
+    public static SaveGameData load() {
+        Debug.Log("Lade Spielstand " + getFilename());
+
+        SaveGameData save = XML.Load<SaveGameData>(File.ReadAllText(getFilename()));
+
+        Player player = Component.FindObjectOfType<Player>();
+        player.transform.position = save.playerPosition;
+
+        return save;
     }
 
 }

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-public class Player : MonoBehaviour
-{
+public class Player : MonoBehaviour {
     public float speed = 0.05f;
     public float jumpPush = 1f;
     public float extraGravity = 20f;
@@ -50,7 +49,8 @@ public class Player : MonoBehaviour
     private void RotatePlayerToMovementDirection(float horizontalMovement) {
         if (horizontalMovement > 0f) {
             targetYRotation = 0f;
-        } else if (horizontalMovement < 0f) {
+        }
+        else if (horizontalMovement < 0f) {
             targetYRotation = -180;
         }
 
