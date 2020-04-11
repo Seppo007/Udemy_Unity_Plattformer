@@ -30,7 +30,7 @@ namespace Borodar.RainbowFolders.Editor
         // Messages
         //---------------------------------------------------------------------
 
-        [PreferenceItem("Rainbow Folders")]
+        [SettingsProvider]
         public static void EditorPreferences()
         {
             EditorGUILayout.HelpBox(HOME_FOLDER_HINT, MessageType.Info);
