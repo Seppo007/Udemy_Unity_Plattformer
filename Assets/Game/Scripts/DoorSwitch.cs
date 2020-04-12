@@ -6,6 +6,18 @@ public class DoorSwitch : MonoBehaviour {
     public Animator doorAnimator;
     public MeshRenderer lightBulbMesh;
 
+    private void Awake() {
+        SaveGameData.onSave += saveMe;
+    }
+
+    private void OnDestroy() {
+        SaveGameData.onSave -= saveMe;
+    }
+
+    private void saveMe(SaveGameData savegame) {
+        savegame.doorIsOpen = doorAnimator.GetBool("isOpen");
+    }
+
     private void OnTriggerStay(Collider other) {
         if (Input.GetAxisRaw("Fire1") != 0f && !doorAnimator.GetBool("isOpen")) {
             openTheDoor();
