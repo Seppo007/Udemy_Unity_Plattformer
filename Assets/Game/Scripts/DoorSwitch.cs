@@ -8,14 +8,20 @@ public class DoorSwitch : MonoBehaviour {
 
     private void Awake() {
         SaveGameData.onSave += saveMe;
+        SaveGameData.onLoad += loadMe;
     }
 
     private void OnDestroy() {
+        SaveGameData.onLoad -= loadMe;
         SaveGameData.onSave -= saveMe;
     }
 
     private void saveMe(SaveGameData savegame) {
         savegame.doorIsOpen = doorAnimator.GetBool("isOpen");
+    }
+
+    private void loadMe(SaveGameData savegame) {
+        if (savegame.doorIsOpen) openTheDoor();
     }
 
     private void OnTriggerStay(Collider other) {
