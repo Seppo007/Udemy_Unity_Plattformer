@@ -11,6 +11,8 @@ using GameDevProfi.Utils;
 public class SaveGameData {
     public Vector3 playerPosition = Vector3.zero;
     public bool doorIsOpen = false;
+    public string lastSaveGameTriggerID = "";
+    public static SaveGameData current = new SaveGameData();
 
     public delegate void SaveHandler(SaveGameData savegame);
     public static event SaveHandler onSave;

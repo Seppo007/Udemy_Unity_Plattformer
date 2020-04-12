@@ -6,10 +6,15 @@ using UnityEngine;
 /// Auslöser für automatischen Speicherpunkt.
 /// </summary>
 public class SaveGameTrigger : MonoBehaviour {
+    public string saveGameTriggerID = "";
+
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("Trying to save");
-        SaveGameData saveGame = new SaveGameData();
-        saveGame.save();
+        SaveGameData saveGame = SaveGameData.current;
+
+        if (saveGame.lastSaveGameTriggerID != saveGameTriggerID) {
+            saveGame.lastSaveGameTriggerID = saveGameTriggerID;
+            saveGame.save();
+        }
     }
 
     // Zeichne Gizmoz nur im Unity Editor
