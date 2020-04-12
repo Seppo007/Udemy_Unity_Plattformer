@@ -32,6 +32,7 @@ public class SaveGameData {
     }
 
     public static SaveGameData load() {
+        if (!File.Exists(getFilename())) return new SaveGameData();
         Debug.Log("Lade Spielstand " + getFilename());
 
         SaveGameData save = XML.Load<SaveGameData>(File.ReadAllText(getFilename()));
