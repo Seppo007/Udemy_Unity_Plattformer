@@ -6,12 +6,14 @@ using UnityEngine;
 /// Auslöser für automatischen Speicherpunkt.
 /// </summary>
 public class SaveGameTrigger : MonoBehaviour {
-
     private void OnTriggerEnter(Collider other) {
+        Debug.Log("Trying to save");
         SaveGameData saveGame = new SaveGameData();
         saveGame.save();
     }
 
+    // Zeichne Gizmoz nur im Unity Editor
+#if UNITY_EDITOR
     private void OnDrawGizmos() {
         if (UnityEditor.Selection.activeGameObject != gameObject) {
             Gizmos.color = Color.magenta;
@@ -22,5 +24,5 @@ public class SaveGameTrigger : MonoBehaviour {
             Gizmos.matrix = oldMatrix;
         }
     }
-
+#endif
 }
