@@ -11,6 +11,10 @@ public class DoorSwitch : MonoBehaviour {
         SaveGameData.onLoad += loadMe;
     }
 
+    private void Start() {
+        loadMe(SaveGameData.current);
+    }
+
     private void OnDestroy() {
         SaveGameData.onLoad -= loadMe;
         SaveGameData.onSave -= saveMe;
