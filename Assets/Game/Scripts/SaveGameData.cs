@@ -12,6 +12,7 @@ public class SaveGameData {
     public Vector3 playerPosition = Vector3.zero;
     public bool doorIsOpen = false;
     public string lastSaveGameTriggerID = "";
+    public string currentScene = "";
     public static SaveGameData current = new SaveGameData();
 
     public delegate void SaveHandler(SaveGameData savegame);
@@ -25,8 +26,6 @@ public class SaveGameData {
     public void save() {
         Debug.Log("Speichere Spielstand " + getFilename());
 
-        Player player = Component.FindObjectOfType<Player>();
-        playerPosition = player.transform.position;
         if (onSave != null) onSave(this);
 
         string xml = XML.Save(this);
@@ -38,9 +37,6 @@ public class SaveGameData {
         Debug.Log("Lade Spielstand " + getFilename());
 
         SaveGameData save = XML.Load<SaveGameData>(File.ReadAllText(getFilename()));
-
-        Player player = Component.FindObjectOfType<Player>();
-        player.transform.position = save.playerPosition;
 
         if (onLoad != null) onLoad(save);
 

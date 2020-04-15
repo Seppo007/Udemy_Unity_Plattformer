@@ -16,11 +16,33 @@ public class Player : MonoBehaviour {
     private void Start() {
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+        loadMe(SaveGameData.current);
+    }
+
+    private void Awake() {
+        SaveGameData.onSave += saveMe;
+        SaveGameData.onLoad += loadMe;
     }
 
     // Update is called once per frame
     private void Update() {
         setAnimatorParameters();
+    }
+
+    private void OnDestroy() {
+        SaveGameData.onLoad -= loadMe;
+        SaveGameData.onSave -= saveMe;
+    }
+
+    private void saveMe(SaveGameData savegame) {
+        savegame.playerPosition = transform.position;
+        savegame.currentScene = gameObject.scene.name;
+    }
+
+    private void loadMe(SaveGameData savegame) {
+        if (savegame.currentScene == gameObject.scene.name) {
+            transform.position = savegame.playerPosition;
+        }
     }
 
     // Helper methods for render update
