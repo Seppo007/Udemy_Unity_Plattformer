@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using Cinemachine;
 
 public class Player : MonoBehaviour {
     public float speed = 0.05f;
     public float jumpPush = 1f;
     public float extraGravity = 20f;
     public GameObject model;
+    public GameObject cameraTarget;
 
     private float targetYRotation;
     private bool onGround;
@@ -22,6 +24,11 @@ public class Player : MonoBehaviour {
     private void Awake() {
         SaveGameData.onSave += saveMe;
         SaveGameData.onLoad += loadMe;
+        CinemachineVirtualCamera cvc = FindObjectOfType<CinemachineVirtualCamera>();
+        if (cvc != null) {
+            cvc.Follow = transform;
+            cvc.LookAt = cameraTarget.transform;
+        }
     }
 
     // Update is called once per frame
