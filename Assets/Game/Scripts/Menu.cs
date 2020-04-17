@@ -10,6 +10,16 @@ public class Menu : MonoBehaviour {
         GetComponent<Canvas>().enabled = false;
     }
 
+    public void onButtonNew() {
+        SaveGameData.current = new SaveGameData();
+        FindObjectOfType<LevelManager>().loadScene("Scene1");
+        GetComponent<Canvas>().enabled = false;
+    }
+
+    public void onButtonQuit() {
+        Application.Quit();
+    }
+
     // Update is called once per frame
     void Update() {
         if (Input.GetAxisRaw("Menu") > 0f) {
