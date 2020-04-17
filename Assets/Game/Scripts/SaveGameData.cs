@@ -17,6 +17,10 @@ public class SaveGameData {
     public static event SaveHandler onSave;
     public static event SaveHandler onLoad;
 
+    public SaveGameData() {
+        currentScene = "Scene1";
+    }
+
     private static string getFilename() {
         return Application.persistentDataPath + Path.DirectorySeparatorChar + "savegame.xml";
     }

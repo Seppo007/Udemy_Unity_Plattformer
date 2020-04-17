@@ -35,6 +35,13 @@ public class Player : Saveable {
         if (Time.timeScale != 0f) {
             setAnimatorParameters();
         }
+
+        if (transform.position.y < -2.4f) {
+            SaveGameData.current = SaveGameData.load();
+            LevelManager lm = FindObjectOfType<LevelManager>();
+            lm.loadScene(SaveGameData.current.currentScene);
+            enabled = false;
+        }
     }
 
     protected override void saveMe(SaveGameData savegame) {
