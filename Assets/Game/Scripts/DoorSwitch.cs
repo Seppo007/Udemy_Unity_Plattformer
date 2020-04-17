@@ -35,4 +35,8 @@ public class DoorSwitch : Saveable {
 
         return switchedMaterials;
     }
+
+    private void OnDrawGizmos() {
+        Utils.drawBoxCollider(this, Color.green);
+    }
 }

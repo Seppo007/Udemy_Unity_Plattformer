@@ -7,4 +7,8 @@ public class GoToScene : MonoBehaviour {
         LevelManager levelManager = FindObjectOfType<LevelManager>();
         levelManager.loadScene(scene);
     }
+
+    private void OnDrawGizmos() {
+        Utils.drawBoxCollider(this, Color.red);
+    }
 }
