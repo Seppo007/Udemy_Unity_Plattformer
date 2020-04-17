@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour {
     }
 
     private void Start() {
-        loadScene(SaveGameData.current.currentScene);
+        loadScene(SaveGameData.current.currentScene != "" ? SaveGameData.current.currentScene : "Scene1");
     }
 
     public void loadScene(string name) {
