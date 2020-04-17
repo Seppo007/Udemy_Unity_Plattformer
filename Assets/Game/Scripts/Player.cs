@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using Cinemachine;
 
-public class Player : MonoBehaviour {
+public class Player : Saveable {
     public float speed = 0.05f;
     public float jumpPush = 1f;
     public float extraGravity = 20f;
     public GameObject model;
+    public GameObject cameraTarget;
 
     private float targetYRotation;
     private bool onGround;
@@ -13,14 +15,37 @@ public class Player : MonoBehaviour {
     private Animator anim;
 
     // Called once when scene is loaded
-    private void Start() {
+    protected override void Start() {
+        base.Start();
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+    }
+
+    protected override void Awake() {
+        base.Awake();
+        CinemachineVirtualCamera cvc = FindObjectOfType<CinemachineVirtualCamera>();
+        if (cvc != null) {
+            cvc.Follow = transform;
+            cvc.LookAt = cameraTarget.transform;
+        }
     }
 
     // Update is called once per frame
     private void Update() {
         setAnimatorParameters();
+    }
+
+    protected override void saveMe(SaveGameData savegame) {
+        base.saveMe(savegame);
+        savegame.playerPosition = transform.position;
+        savegame.currentScene = gameObject.scene.name;
+    }
+
+    protected override void loadMe(SaveGameData savegame) {
+        base.loadMe(savegame);
+        if (savegame.currentScene == gameObject.scene.name) {
+            transform.position = savegame.playerPosition;
+        }
     }
 
     // Helper methods for render update
