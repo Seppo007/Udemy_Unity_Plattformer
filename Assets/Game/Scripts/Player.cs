@@ -32,7 +32,9 @@ public class Player : Saveable {
 
     // Update is called once per frame
     private void Update() {
-        setAnimatorParameters();
+        if (Time.timeScale != 0f) {
+            setAnimatorParameters();
+        }
     }
 
     protected override void saveMe(SaveGameData savegame) {
@@ -56,14 +58,16 @@ public class Player : Saveable {
 
     // Update of physics in constant time delta
     private void FixedUpdate() {
-        float horizontalMovement = Input.GetAxis("Horizontal");
-        float playerJump = Input.GetAxis("Jump");
+        if (Time.timeScale != 0f) {
+            float horizontalMovement = Input.GetAxis("Horizontal");
+            float playerJump = Input.GetAxis("Jump");
 
-        MovePlayerAndSetAnimator(horizontalMovement);
-        RotatePlayerToMovementDirection(horizontalMovement);
-        JumpPlayer(playerJump);
+            MovePlayerAndSetAnimator(horizontalMovement);
+            RotatePlayerToMovementDirection(horizontalMovement);
+            JumpPlayer(playerJump);
 
-        CalculatePlayerOnGround();
+            CalculatePlayerOnGround();
+        }
     }
 
     // Helper methods for physics update
