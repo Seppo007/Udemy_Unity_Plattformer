@@ -1,19 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Menu : MonoBehaviour {
     private bool keyWasPressed = false;
+    public GameObject menuRoot;
 
     // Start is called before the first frame update
     void Start() {
-        GetComponent<Canvas>().enabled = false;
+        menuRoot.SetActive(false);
     }
 
     public void onButtonNew() {
         SaveGameData.current = new SaveGameData();
         FindObjectOfType<LevelManager>().loadScene("Scene1");
-        GetComponent<Canvas>().enabled = false;
+        menuRoot.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     public void onButtonQuit() {
@@ -24,8 +24,8 @@ public class Menu : MonoBehaviour {
     void Update() {
         if (Input.GetAxisRaw("Menu") > 0f) {
             if (!keyWasPressed) {
-                Canvas canvas = GetComponent<Canvas>();
-                canvas.enabled = !canvas.enabled;
+                menuRoot.SetActive(!menuRoot.activeSelf);
+                Time.timeScale = menuRoot.activeSelf ? 0f : 1f;
             }
             keyWasPressed = true;
         }
