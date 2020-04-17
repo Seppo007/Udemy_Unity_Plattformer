@@ -1,30 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class DoorSwitch : MonoBehaviour {
+public class DoorSwitch : Saveable {
     public Animator doorAnimator;
     public MeshRenderer lightBulbMesh;
 
-    private void Awake() {
-        SaveGameData.onSave += saveMe;
-        SaveGameData.onLoad += loadMe;
-    }
-
-    private void Start() {
-        loadMe(SaveGameData.current);
-    }
-
-    private void OnDestroy() {
-        SaveGameData.onLoad -= loadMe;
-        SaveGameData.onSave -= saveMe;
-    }
-
-    private void saveMe(SaveGameData savegame) {
+    protected override void saveMe(SaveGameData savegame) {
+        base.saveMe(savegame);
         savegame.doorIsOpen = doorAnimator.GetBool("isOpen");
     }
 
-    private void loadMe(SaveGameData savegame) {
+    protected override void loadMe(SaveGameData savegame) {
+        base.loadMe(savegame);
         if (savegame.doorIsOpen) openTheDoor();
     }
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Cinemachine;
 
-public class Player : MonoBehaviour {
+public class Player : Saveable {
     public float speed = 0.05f;
     public float jumpPush = 1f;
     public float extraGravity = 20f;
@@ -15,15 +15,14 @@ public class Player : MonoBehaviour {
     private Animator anim;
 
     // Called once when scene is loaded
-    private void Start() {
+    protected override void Start() {
+        base.Start();
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
-        loadMe(SaveGameData.current);
     }
 
-    private void Awake() {
-        SaveGameData.onSave += saveMe;
-        SaveGameData.onLoad += loadMe;
+    protected override void Awake() {
+        base.Awake();
         CinemachineVirtualCamera cvc = FindObjectOfType<CinemachineVirtualCamera>();
         if (cvc != null) {
             cvc.Follow = transform;
@@ -36,17 +35,14 @@ public class Player : MonoBehaviour {
         setAnimatorParameters();
     }
 
-    private void OnDestroy() {
-        SaveGameData.onLoad -= loadMe;
-        SaveGameData.onSave -= saveMe;
-    }
-
-    private void saveMe(SaveGameData savegame) {
+    protected override void saveMe(SaveGameData savegame) {
+        base.saveMe(savegame);
         savegame.playerPosition = transform.position;
         savegame.currentScene = gameObject.scene.name;
     }
 
-    private void loadMe(SaveGameData savegame) {
+    protected override void loadMe(SaveGameData savegame) {
+        base.loadMe(savegame);
         if (savegame.currentScene == gameObject.scene.name) {
             transform.position = savegame.playerPosition;
         }
