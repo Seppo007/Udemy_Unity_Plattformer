@@ -34,14 +34,21 @@ public class Player : Saveable {
     private void Update() {
         if (Time.timeScale != 0f) {
             setAnimatorParameters();
+            if (transform.position.y < -2.5f) {
+                killPlayer();
+            }
         }
+    }
 
-        if (transform.position.y < -2.4f) {
-            SaveGameData.current = SaveGameData.load();
-            LevelManager lm = FindObjectOfType<LevelManager>();
-            lm.loadScene(SaveGameData.current.currentScene);
-            enabled = false;
+    private void killPlayer() {
+        enabled = false;
+        CinemachineVirtualCamera cvc = FindObjectOfType<CinemachineVirtualCamera>();
+        if (cvc != null) {
+            cvc.Follow = null;
+            cvc.LookAt = null;
         }
+        ScreenFader screenFader = FindObjectOfType<ScreenFader>();
+        screenFader.fadeOut(true);
     }
 
     protected override void saveMe(SaveGameData savegame) {
