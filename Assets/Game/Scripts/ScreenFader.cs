@@ -19,12 +19,12 @@ public class ScreenFader : MonoBehaviour {
     }
 
     public void Awake() {
-        SceneManager.sceneLoaded += OnLevelWasLoaded;
+        SceneManager.sceneLoaded += onLevelLoaded;
         overlay.gameObject.SetActive(true);
     }
 
     public void OnDestroy() {
-        SceneManager.sceneLoaded -= OnLevelWasLoaded;
+        SceneManager.sceneLoaded -= onLevelLoaded;
     }
 
     public void fadeIn(bool revertToSaveGame) {
@@ -35,7 +35,7 @@ public class ScreenFader : MonoBehaviour {
         StartCoroutine(performFading(1f, revertToSaveGame));
     }
 
-    private void OnLevelWasLoaded(Scene scene, LoadSceneMode mode) {
+    private void onLevelLoaded(Scene scene, LoadSceneMode mode) {
         fadeIn(false);
     }
 }
