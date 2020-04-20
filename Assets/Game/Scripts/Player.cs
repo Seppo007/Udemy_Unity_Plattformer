@@ -19,6 +19,7 @@ public class Player : Saveable {
         base.Start();
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+        setRagdollMode(false);
     }
 
     protected override void Awake() {
@@ -32,6 +33,12 @@ public class Player : Saveable {
 
     // Update is called once per frame
     private void Update() {
+        if (Input.GetKeyUp(KeyCode.Alpha9)) {
+            setRagdollMode(true);
+            enabled = false;
+            return;
+        }
+
         if (Time.timeScale != 0f) {
             setAnimatorParameters();
             if (transform.position.y < -2.5f) {
@@ -42,6 +49,7 @@ public class Player : Saveable {
 
     private void killPlayer() {
         enabled = false;
+        setRagdollMode(true);
         CinemachineVirtualCamera cvc = FindObjectOfType<CinemachineVirtualCamera>();
         if (cvc != null) {
             cvc.Follow = null;
@@ -114,5 +122,21 @@ public class Player : Saveable {
     private void CalculatePlayerOnGround() {
         RaycastHit hitInfo;
         onGround = Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.12f);
+    }
+
+    private void setRagdollMode(bool playerDead) {
+        // GetComponensInChildren also affects component on root
+        foreach (Collider collider in GetComponentsInChildren<Collider>()) {
+            collider.enabled = playerDead;
+        }
+
+        foreach (Rigidbody rigidbody in GetComponentsInChildren<Rigidbody>()) {
+            rigidbody.isKinematic = !playerDead;
+        }
+
+        // set the right state for Collider and Rigidbody after all were activated / deactivated before
+        GetComponent<Rigidbody>().isKinematic = playerDead;
+        GetComponent<Collider>().enabled = !playerDead;
+        GetComponentInChildren<Animator>().enabled = !playerDead;
     }
 }
