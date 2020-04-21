@@ -33,12 +33,6 @@ public class Player : Saveable {
 
     // Update is called once per frame
     private void Update() {
-        if (Input.GetKeyUp(KeyCode.Alpha9)) {
-            setRagdollMode(true);
-            enabled = false;
-            return;
-        }
-
         if (Time.timeScale != 0f) {
             setAnimatorParameters();
             if (transform.position.y < -2.5f) {
@@ -56,7 +50,7 @@ public class Player : Saveable {
             cvc.LookAt = null;
         }
         ScreenFader screenFader = FindObjectOfType<ScreenFader>();
-        screenFader.fadeOut(true);
+        screenFader.fadeOut(true, 1.5f);
     }
 
     protected override void saveMe(SaveGameData savegame) {
@@ -138,5 +132,9 @@ public class Player : Saveable {
         GetComponent<Rigidbody>().isKinematic = playerDead;
         GetComponent<Collider>().enabled = !playerDead;
         GetComponentInChildren<Animator>().enabled = !playerDead;
+    }
+
+    public void looseHealth() {
+        killPlayer();
     }
 }
