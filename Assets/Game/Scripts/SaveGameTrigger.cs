@@ -9,11 +9,14 @@ public class SaveGameTrigger : MonoBehaviour {
     public string saveGameTriggerID = "";
 
     private void OnTriggerEnter(Collider other) {
-        SaveGameData saveGame = SaveGameData.current;
+        Player player = FindObjectOfType<Player>();
+        if (other.gameObject == player.gameObject) {
+            SaveGameData saveGame = SaveGameData.current;
 
-        if (saveGame.lastSaveGameTriggerID != saveGameTriggerID) {
-            saveGame.lastSaveGameTriggerID = saveGameTriggerID;
-            saveGame.save();
+            if (player.health > 0 && saveGame.lastSaveGameTriggerID != saveGameTriggerID) {
+                saveGame.lastSaveGameTriggerID = saveGameTriggerID;
+                saveGame.save();
+            }
         }
     }
 
