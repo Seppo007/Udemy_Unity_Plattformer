@@ -59,6 +59,7 @@ public class Player : Saveable {
     protected override void saveMe(SaveGameData savegame) {
         base.saveMe(savegame);
         savegame.playerPosition = transform.position;
+        savegame.playerHealth = health;
         savegame.currentScene = gameObject.scene.name;
     }
 
@@ -66,6 +67,7 @@ public class Player : Saveable {
         base.loadMe(savegame);
         if (savegame.currentScene == gameObject.scene.name) {
             transform.position = savegame.playerPosition;
+            health = Mathf.Clamp01(savegame.playerHealth);
         }
     }
 

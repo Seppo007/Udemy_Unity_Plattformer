@@ -8,6 +8,7 @@ using GameDevProfi.Utils;
 [System.Serializable]
 public class SaveGameData {
     public Vector3 playerPosition = Vector3.zero;
+    public float playerHealth = 1f;
     public bool doorIsOpen = false;
     public string lastSaveGameTriggerID = "";
     public string currentScene = "";
