@@ -14,6 +14,8 @@ public class Player : Saveable {
 
     private Animator anim;
 
+    private RaycastHit hitInfo;
+
     // Called once when scene is loaded
     protected override void Start() {
         base.Start();
@@ -78,7 +80,7 @@ public class Player : Saveable {
             float horizontalMovement = Input.GetAxis("Horizontal");
             float playerJump = Input.GetAxis("Jump");
 
-            MovePlayerAndSetAnimator(horizontalMovement);
+            MovePlayer(horizontalMovement);
             RotatePlayerToMovementDirection(horizontalMovement);
             JumpPlayer(playerJump);
 
@@ -87,8 +89,11 @@ public class Player : Saveable {
     }
 
     // Helper methods for physics update
-    private void MovePlayerAndSetAnimator(float horizontalMovement) {
+    private void MovePlayer(float horizontalMovement) {
         transform.position += speed * transform.forward * horizontalMovement;
+        if (onGround && Vector3.Angle(Vector3.up, hitInfo.normal) > 10f) {
+            rb.AddForce(hitInfo.normal);
+        }
     }
 
     private void RotatePlayerToMovementDirection(float horizontalMovement) {
@@ -114,8 +119,7 @@ public class Player : Saveable {
     }
 
     private void CalculatePlayerOnGround() {
-        RaycastHit hitInfo;
-        onGround = Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.12f);
+        onGround = Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.25f);
     }
 
     private void setRagdollMode(bool playerDead) {
