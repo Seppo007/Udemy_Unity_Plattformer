@@ -5,6 +5,7 @@ public class Player : Saveable {
     public float speed = 0.05f;
     public float jumpPush = 1f;
     public float extraGravity = 20f;
+    public float health = 100;
     public GameObject model;
     public GameObject cameraTarget;
 
@@ -139,6 +140,7 @@ public class Player : Saveable {
     }
 
     public void looseHealth() {
-        killPlayer();
+        health -= 50f;
+        if (health <= 0) killPlayer();
     }
 }
