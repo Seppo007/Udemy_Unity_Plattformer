@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using System.IO;
 using GameDevProfi.Utils;
 
@@ -8,10 +9,12 @@ using GameDevProfi.Utils;
 [System.Serializable]
 public class SaveGameData {
     public Vector3 playerPosition = Vector3.zero;
-    public float playerHealth = 1f;
     public bool doorIsOpen = false;
+    public float playerHealth = 1f;
+    public HashSet<string> disabledHealthOrbs = new HashSet<string>();
     public string lastSaveGameTriggerID = "";
     public string currentScene = "";
+
     public static SaveGameData current = new SaveGameData();
 
     public delegate void SaveHandler(SaveGameData savegame);

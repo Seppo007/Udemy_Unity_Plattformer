@@ -67,6 +67,7 @@ public class Player : Saveable {
         base.loadMe(savegame);
         if (savegame.currentScene == gameObject.scene.name) {
             transform.position = savegame.playerPosition;
+            transform.position = new Vector3(0f, transform.position.y, transform.position.z);
             health = Mathf.Clamp01(savegame.playerHealth);
         }
     }
