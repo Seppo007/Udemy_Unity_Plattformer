@@ -18,10 +18,22 @@ public class SaveGameData {
     public string currentScene = "";
 
     // Entity Data
-    public bool doorIsOpen = false;
-    public Vector3 barrelPosition = new Vector3(0f, 3.6f, 12.9f);
-    public Vector3 barrelRotation = new Vector3(0f, 90f, 0f);
+    [System.Serializable]
+    public class BarrelData {
+        public string ID = "";
+        public Vector3 position = new Vector3(0f, 3.6f, 12.9f);
+        public Vector3 rotation = new Vector3(0f, 90f, 0f);
 
+        public BarrelData(string id, Vector3 pos, Vector3 rot) {
+            ID = id;
+            position = pos;
+            rotation = rot;
+        }
+
+        public BarrelData() { }
+    }
+    public List<BarrelData> barrelData = new List<BarrelData>();
+    public bool doorIsOpen = false;
 
     public static SaveGameData current = new SaveGameData();
 
@@ -57,4 +69,10 @@ public class SaveGameData {
         return save;
     }
 
+    public BarrelData findBarrelDataByID(string ID) {
+        foreach (BarrelData bd in barrelData) {
+            if (bd != null && bd.ID == ID) return bd;
+        }
+        return null;
+    }
 }
