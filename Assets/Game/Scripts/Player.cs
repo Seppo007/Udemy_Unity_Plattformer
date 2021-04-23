@@ -87,6 +87,7 @@ public class Player : Saveable {
             MovePlayer(horizontalMovement);
             RotatePlayerToMovementDirection(horizontalMovement);
             JumpPlayer(playerJump);
+            ShootGun();
 
             CalculatePlayerOnGround();
         }
@@ -120,6 +121,14 @@ public class Player : Saveable {
         }
 
         rb.AddForce(new Vector3(0f, -extraGravity, 0f));
+    }
+
+    private void ShootGun()
+    {
+        if(Input.GetAxisRaw("Fire2") > 0f)
+        {
+            GetComponentInChildren<Gun>().shoot();
+        }
     }
 
     private void CalculatePlayerOnGround() {
