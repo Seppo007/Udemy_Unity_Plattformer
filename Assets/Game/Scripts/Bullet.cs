@@ -9,4 +9,12 @@ public class Bullet : MonoBehaviour
     {
         GetComponent<Rigidbody>().velocity = Vector3.forward * (transform.rotation.y < 0 ? 5f : -5f);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        BulletCatcher bulletCatcher = collision.gameObject.GetComponent<BulletCatcher>();
+        Destroy(gameObject);
+        if (bulletCatcher)
+            bulletCatcher.onHitByBullet();
+    }
 }
